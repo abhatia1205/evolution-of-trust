@@ -2,6 +2,8 @@ from typing import Dict, Type, List
 from Player import Player
 from Util import Action
 from collections import defaultdict
+from Submissions.AdaptivePavlov import AdaptivePavlov
+from Submissions.nPavlov import nPavlov
 import numpy as np
 import copy
 
@@ -61,6 +63,10 @@ class Game():
             self.print_players()
             print("\n")
 
-
+def main():
+    dict = {AdaptivePavlov: 15, nPavlov: 15}
+    g = Game(dict)
+    g.game()
+main()
 
     
