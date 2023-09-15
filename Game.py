@@ -55,8 +55,10 @@ class Game():
         for i in range(self.GAMES):
             print('Starting state: \n')
             self.print_players()
+
             self.round()
             self.reproduce()
+            
             print('End state after reproduction: \n')
             self.print_players()
             print("\n")
