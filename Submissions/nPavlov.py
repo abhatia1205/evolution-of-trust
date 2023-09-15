@@ -6,16 +6,10 @@ class nPavlov(Player):
 
     def __init__(self):
         super().__init__()
-        self.score = 0
-        self.other_history = []
-        self.self_history = []
         self.pCoop = 1
         self.currRound = 0;
     
     def reset(self):
-        self.reset()
-        self.other_history = []
-        self.self_history = []
         self.pCoop = 1
         self.currRound = 0
     
