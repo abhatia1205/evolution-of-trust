@@ -2,10 +2,10 @@ from typing import Dict, Type, List
 from Player import Player
 from Util import *
 from collections import defaultdict
-from Submissions.AdaptivePavlov import *
-from Submissions.GradualPlayer import *
-from Submissions.TwoTitForTatDynamic import *
-from Submissions.nPavlov import *
+from Submissions.AdaptivePavlov import AdaptivePavlov
+from Submissions.nPavlov import nPavlov
+from Submissions.TwoTitForTatDynamic import TwoTitForTatDynamic
+from Submissions.SpitefulTFT import SpitefulTFT
 import numpy as np
 import copy
 
@@ -70,7 +70,7 @@ class Game():
             print("\n")
 
 def main():
-    dict = {AdaptivePavlov: 15, nPavlov: 15, Gradual: 15, TwoTitForTatDynamic: 15}
+    dict = {SpitefulTFT: 15, TwoTitForTatDynamic: 15}
     g = Game(dict)
     g.game()
 main()

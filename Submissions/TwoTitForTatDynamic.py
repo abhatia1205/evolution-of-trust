@@ -15,7 +15,7 @@ class TwoTitForTatDynamic(Player):
     """
 
 
-    def strategy(self):
+    def act(self):
         # strategy definition that determines player's action
         # First move
         if not self.other_history:

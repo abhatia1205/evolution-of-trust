@@ -1,2 +1,6 @@
 Change structure somehow to not require super
 Change strcuture to hide score variable from class
+
+
+Submission link
+https://forms.gle/wqCEQYHY5R2iu8yQ6
