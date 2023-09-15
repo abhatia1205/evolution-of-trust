@@ -4,6 +4,7 @@ from Util import Action
 from collections import defaultdict
 from Submissions.AdaptivePavlov import AdaptivePavlov
 from Submissions.nPavlov import nPavlov
+from Submissions.TwoTitForTatDynamic import TwoTitForTatDynamic
 import numpy as np
 import copy
 
@@ -73,4 +74,3 @@ def main():
     g.game()
 main()
 
-    
