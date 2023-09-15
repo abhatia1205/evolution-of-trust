@@ -1,19 +1,23 @@
-from typing import List, Tuple
+from typing import Type, List, Tuple
 from Player import Player
 from Submissions import *
 import glob
 import inspect
 
-def genPlayers() -> List[Tuple[str, Player]]:
-    classNames = [c[14:-3] for c in glob.glob('./Submissions/*.py') if not '__init__.py' in c]
-    print(classNames)
+def genClasses() -> List[Tuple[str, Type[Player]]]:
+    '''Generates of a list of classes in the Submissions package
+
+    Returns:
+        List[Tuple[str, Type[Player]]] - List of tuples with pairs of class name and classes
+    '''
+    moduleNames = [c[14:-3] for c in glob.glob('./Submissions/*.py') if not '__init__.py' in c]
+    print(moduleNames)
     players = []
-    for c in classNames:
+    for c in moduleNames:
         for name, klass in inspect.getmembers(globals()[c], inspect.isclass):
             if 'Submissions' in klass.__module__ and issubclass(klass, Player):
-                players.append((c+'.'+name, klass()))
+                players.append((c+'.'+name, klass))
     return players
 
-players = genPlayers()
-print(players[0][0])
-print(players[0][1].act())
+players = genClasses()
+print(players)
