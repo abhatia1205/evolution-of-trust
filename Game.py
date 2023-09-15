@@ -1,6 +1,6 @@
 from typing import Dict, Type, List
 from Player import Player
-from Util import Action
+from Util import *
 from collections import defaultdict
 from Submissions.AdaptivePavlov import AdaptivePavlov
 from Submissions.nPavlov import nPavlov
@@ -32,7 +32,8 @@ class Game():
         print("\n")
     
     def reproduce(self):
-        l = sorted(self.players, key = lambda x: x._get_score())[:-self.REPRODUCE]
+        l = sorted(self.players, key = lambda x: x._get_score())
+        l = l[:-self.REPRODUCE]
         for i in range(self.REPRODUCE):
             l.append(copy.deepcopy(l[i]))
         self.players = l
@@ -44,9 +45,8 @@ class Game():
             p2 = player2.act()
             assert isinstance(p1, Action)
             assert isinstance(p1, Action)
-            p1, p2 = p1.value, p2.value
-            player1._update(p1, p2, self.payoff[p1][p2])
-            player2._update(p2, p1, self.payoff[p2][p1])
+            player1._update(p1, p2, self.payoff[p1.value][p2.value])
+            player2._update(p2, p1, self.payoff[p2.value][p1.value])
         player1._reset()
         player2._reset()
 
