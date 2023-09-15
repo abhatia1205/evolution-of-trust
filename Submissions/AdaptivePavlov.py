@@ -11,6 +11,8 @@ class AdaptivePavlov(Player):
     
     def act(self):
         #Tit for Tat for first 6 rounds
+        if(len(self.self_history) == 0):
+            return Action.COOPERATE
         if len(self.self_history) <= 6:
             return Action.COOPERATE if self.other_history[-1] == Action.COOPERATE else Action.CHEAT
         if len(self.self_history) % 6 == 0:
