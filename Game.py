@@ -1,11 +1,12 @@
 from typing import Dict, Type, List
 from Player import Player
-from Util import Action
+from Util import *
 from collections import defaultdict
 from Submissions.AdaptivePavlov import AdaptivePavlov
 from Submissions.nPavlov import nPavlov
 import numpy as np
 import copy
+from Submissions.GradualPlayer import Gradual
 
 class Game():
 
@@ -30,7 +31,8 @@ class Game():
         print("\n")
     
     def reproduce(self):
-        l = sorted(self.players, key = lambda x: x._get_score())[:-self.REPRODUCE]
+        l = sorted(self.players, key = lambda x: x._get_score())
+        l = l[:-self.REPRODUCE]
         for i in range(self.REPRODUCE):
             l.append(copy.deepcopy(l[i]))
         self.players = l
@@ -68,7 +70,7 @@ class Game():
             print("\n")
 
 def main():
-    dict = {AdaptivePavlov: 15, nPavlov: 15}
+    dict = {AdaptivePavlov: 15, nPavlov: 15, Gradual: 15}
     g = Game(dict)
     g.game()
 main()

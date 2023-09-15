@@ -11,7 +11,7 @@ class Gradual(Player):
 
     def act(self) -> Action:
 
-        if len(self.history) == 0:
+        if len(self.other_history) == 0:
             return Action.COOPERATE
 
         if self.punish_count > 0:
