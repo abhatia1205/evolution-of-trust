@@ -1,6 +1,6 @@
 from Util import Action
 
-class test:
+class test():
     def __init__(self):
         self.score = 0
         self.history = []
