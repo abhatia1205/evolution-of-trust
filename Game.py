@@ -1,4 +1,4 @@
-from typing import Dict, Type 
+from typing import Dict, Type, List
 from Player import Player
 from Util import Action
 from collections import defaultdict
@@ -8,12 +8,13 @@ import copy
 class Game():
 
     def __init__(self):
-        self.players = []
+        self.players: List[Player] = []
         self.noise = 0
         self.payoff = np.array([[0, 3],
                        [-1, 2]])
-        self.reproduce = 5
-        self.rounds = 7
+        self.REPRODUCE = 5
+        self.ROUNDS = 7
+        self.GAMES = 20
     
     def __init__(self, player_dict: Dict[Type, int]):
         for key, val in player_dict:
@@ -24,30 +25,42 @@ class Game():
         for player in self.players():
             d[type(player).__name__] += 1
         for key, val in sorted(d.items(), lambda kv: kv[1]):
-            print(f"{key}: {val}", end = " ")
+            print(f"\t{key}: {val}", end = "\n")
         print("\n")
     
     def reproduce(self):
         l = sorted(self.players, key = lambda x: x.score())[:-self.reproduce]
-        for i in range(self.reproduce):
+        for i in range(self.REPRODUCE):
             l.append(copy.deepcopy(l[i]))
         self.players = l
         
 
+    def standoff(self, player1: Player, player2: Player):
+        for k in range(self.ROUNDS):
+            p1 = player1.act()
+            p2 = player2.act()
+            player1._update(p1, p2, self.payoff[(p1, p2)])
+            player2._update(p2, p1, self.payoff[(p2, p1)])
+        player1._reset()
+        player2._reset()
+
     def round(self):
+        #set up players lol
         for i in range(len(self.players)):
             for j in range(i+1, len(self.players)):
-                for k in range(self.round):
-                    p1 = self.players[i].act()
-                    p2 = self.players[j].act()
-                    self.players[i]._update(p1, p2, self.payoff[(p1, p2)])
-                    self.players[j]._update(p2, p1, self.payoff[(p2, p1)])
-                self.players[i]._reset()
-                self.players[j]._reset()
-        self.reproduce()
-        self.print_players()
+                self.standoff()
+    
+    def game(self):
+        print("Starting game")
+        for i in range(self.GAMES):
+            print('Starting state: \n')
+            self.print_players()
+            self.round()
+            self.reproduce()
+            print('End state after reproduction: \n')
+            self.print_players()
+            print("\n")
 
-    def tournament(self):
-        pass
+
 
     
