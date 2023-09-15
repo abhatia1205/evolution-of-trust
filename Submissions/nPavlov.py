@@ -4,13 +4,14 @@ from Util import *
 class nPavlov(Player):
 
     def __init__(self):
+        super().__init__()
         self.score = 0
         self.other_history = []
         self.self_history = []
         self.pCoop = 1
         self.currRound = 0;
     
-    def _act(self):
+    def act(self):
         #Tit for Tat for first 6 rounds
         if(self.currRound == 0):
             self.currRound += 1

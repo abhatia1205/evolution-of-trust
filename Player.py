@@ -3,7 +3,7 @@ from Util import *
 class Player():
 
     def __init__(self):
-        self.score = 0
+        self._score = 0
         self.other_history = []
         self.self_history = []
     
@@ -13,7 +13,7 @@ class Player():
     def _update(self, self_action: Action, other_action: Action, score: int):
         self.other_history.append(other_action)
         self.self_history.append(self_action)
-        self.score += score 
+        self._score += score 
 
     def _reset(self):
         self.reset()
@@ -22,3 +22,6 @@ class Player():
     
     def act(self):
         pass
+
+    def _get_score(self):
+        return self._score

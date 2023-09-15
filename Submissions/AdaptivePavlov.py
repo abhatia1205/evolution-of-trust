@@ -4,12 +4,12 @@ from Util import *
 class AdaptivePavlov(Player):
 
     def __init__(self):
-        self.score = 0
+        super().__init__()
         self.other_history = []
         self.self_history = []
         self.other_class = "Cooperative"
     
-    def _act(self):
+    def act(self):
         #Tit for Tat for first 6 rounds
         if len(self.self_history) <= 6:
             return Action.COOPERATE if self.other_history[-1] == Action.COOPERATE else Action.CHEAT

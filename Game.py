@@ -9,29 +9,28 @@ import copy
 
 class Game():
 
-    def __init__(self):
+    def __init__(self, player_dict: Dict[Type, int]):
         self.players: List[Player] = []
         self.noise = 0
-        self.payoff = np.array([[0, 3],
-                       [-1, 2]])
+        self.payoff = [[0, 3],
+                       [-1, 2]]
         self.REPRODUCE = 5
         self.ROUNDS = 7
         self.GAMES = 20
-    
-    def __init__(self, player_dict: Dict[Type, int]):
-        for key, val in player_dict:
+
+        for key, val in player_dict.items():
             [self.players.append(key()) for i in range(val)]
-    
+        
     def print_players(self):
-        d = defaultdict()
-        for player in self.players():
-            d[type(player).__name__] += 1
-        for key, val in sorted(d.items(), lambda kv: kv[1]):
+        d = defaultdict(lambda: 0)
+        for player in self.players:
+            d[type(player).__name__] = d[type(player).__name__] + 1
+        for key, val in sorted(d.items(), key = lambda kv: kv[1]):
             print(f"\t{key}: {val}", end = "\n")
         print("\n")
     
     def reproduce(self):
-        l = sorted(self.players, key = lambda x: x.score())[:-self.reproduce]
+        l = sorted(self.players, key = lambda x: x._get_score())[:-self.reproduce]
         for i in range(self.REPRODUCE):
             l.append(copy.deepcopy(l[i]))
         self.players = l
@@ -41,8 +40,10 @@ class Game():
         for k in range(self.ROUNDS):
             p1 = player1.act()
             p2 = player2.act()
-            player1._update(p1, p2, self.payoff[(p1, p2)])
-            player2._update(p2, p1, self.payoff[(p2, p1)])
+            assert isinstance(p1, Action)
+            assert isinstance(p1, Action)
+            player1._update(p1, p2, self.payoff[p1][p2])
+            player2._update(p2, p1, self.payoff[p2][p1])
         player1._reset()
         player2._reset()
 
@@ -50,7 +51,7 @@ class Game():
         #set up players lol
         for i in range(len(self.players)):
             for j in range(i+1, len(self.players)):
-                self.standoff()
+                self.standoff(self.players[i], self.players[j])
     
     def game(self):
         print("Starting game")
