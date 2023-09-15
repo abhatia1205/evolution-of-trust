@@ -4,18 +4,21 @@ class Player():
 
     def __init__(self):
         self.score = 0
-        self.history = []
+        self.other_history = []
+        self.self_history = []
     
     def reset(self):
-        self.history = []
+        pass
 
-    def _update(self, other_action: Action, score: int):
-        self.history.append(other_action)
+    def _update(self, self_action: Action, other_action: Action, score: int):
+        self.other_history.append(other_action)
+        self.self_history.append(self_action)
         self.score += score 
 
     def _reset(self):
         self.reset()
-        self.history = []
+        self.other_history = []
+        self.self_history = []
     
-    def _act(self):
+    def act(self):
         pass
