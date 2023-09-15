@@ -1,3 +1,4 @@
+import numpy as np
 from Player import Player
 from Util import *
 
@@ -9,6 +10,13 @@ class nPavlov(Player):
         self.self_history = []
         self.pCoop = 1
         self.currRound = 0;
+    
+    def _reset(self):
+        self.reset()
+        self.other_history = []
+        self.self_history = []
+        self.pCoop = 1
+        self.currRound = 0
     
     def _act(self):
         #Tit for Tat for first 6 rounds
