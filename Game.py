@@ -3,9 +3,14 @@ from Player import Player
 from Util import *
 from collections import defaultdict
 from Submissions.AdaptivePavlov import AdaptivePavlov
+from Submissions.AdaptiveReg import Adaptive
 from Submissions.nPavlov import nPavlov
 from Submissions.TwoTitForTatDynamic import TwoTitForTatDynamic
 from Submissions.SpitefulTFT import SpitefulTFT
+from Submissions.GradualPlayer import Gradual
+from Submissions.SuspiciousTFTPlayer import SuspiciousTitForTat
+from Submissions.Basics import *
+from Submissions.TFT import TFT
 import numpy as np
 import copy
 
@@ -19,6 +24,7 @@ class Game():
         self.REPRODUCE = 5
         self.ROUNDS = 7
         self.GAMES = 20
+        self.removed = set()
 
         for key, val in player_dict.items():
             [self.players.append(key()) for i in range(val)]
@@ -29,18 +35,22 @@ class Game():
             d[type(player).__name__] = d[type(player).__name__] + 1
         for key, val in sorted(d.items(), key = lambda kv: kv[1]):
             print(f"\t{key}: {val}", end = "\n")
+        print('Removed: ', self.removed)
         print("\n")
     
     def reproduce(self):
+        self.removed = set()
         l = sorted(self.players, key = lambda x: x._get_score())
-        l = l[:-self.REPRODUCE]
-        for i in range(self.REPRODUCE):
+        for i in l[-REPRODUCE:]:
+            if not type(i) in self.removed:
+                self.removed.add(type(i))
+        l = l[:-REPRODUCE]
+        for i in range(REPRODUCE):
             l.append(copy.deepcopy(l[i]))
         self.players = l
-        
 
     def standoff(self, player1: Player, player2: Player):
-        for k in range(self.ROUNDS):
+        for k in range(ROUNDS):
             p1 = player1._act()
             p2 = player2._act()
             assert isinstance(p1, Action)
@@ -58,26 +68,24 @@ class Game():
     
     def game(self):
         print("Starting game")
-        for i in range(self.GAMES):
-            print('Starting state: \n')
-            self.print_players()
+        for i in range(GAMES):
+            # print('Starting state: \n')
+            # self.print_players()
 
             self.round()
             self.reproduce()
             
             print('End state after reproduction: \n')
             self.print_players()
-            print("\n")
+            # print("\n")
 
 
 def main():
-<<<<<<< Updated upstream
-
-    dict = {SpitefulTFT: 15, TwoTitForTatDynamic: 15}
-=======
-    dict = {AdaptivePavlov: 15, TwoTitForTatDynamic: 15}
->>>>>>> Stashed changes
+    dict = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
+            Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 15, AdaptivePavlov: 15, 
+            TFT: 15}
     g = Game(dict)
+    g.print_players()
     g.game()
 main()
 
