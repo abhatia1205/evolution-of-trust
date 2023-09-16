@@ -23,7 +23,7 @@ class TwoTitForTatDynamic(Player):
             return Action.COOPERATE
         if Action.CHEAT in self.other_history[-2:]:
             # Probability of cooperating regardless
-            return np.random.random_choice(
+            return np.random.random_choice( #random choice
                 self.other_history.count(Action.COOPERATE) / len(self.other_history)
             )
         else:

@@ -71,8 +71,12 @@ class Game():
 
 
 def main():
+<<<<<<< Updated upstream
 
     dict = {SpitefulTFT: 15, TwoTitForTatDynamic: 15}
+=======
+    dict = {AdaptivePavlov: 15, TwoTitForTatDynamic: 15}
+>>>>>>> Stashed changes
     g = Game(dict)
     g.game()
 main()
