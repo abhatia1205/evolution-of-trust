@@ -41,8 +41,8 @@ class Game():
 
     def standoff(self, player1: Player, player2: Player):
         for k in range(self.ROUNDS):
-            p1 = player1.act()
-            p2 = player2.act()
+            p1 = player1._act()
+            p2 = player2._act()
             assert isinstance(p1, Action)
             assert isinstance(p1, Action)
             player1._update(p1, p2, self.payoff[p1.value][p2.value])
@@ -69,7 +69,9 @@ class Game():
             self.print_players()
             print("\n")
 
+
 def main():
+
     dict = {SpitefulTFT: 15, TwoTitForTatDynamic: 15}
     g = Game(dict)
     g.game()

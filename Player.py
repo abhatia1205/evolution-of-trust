@@ -25,3 +25,9 @@ class Player():
 
     def _get_score(self):
         return self._score
+    
+    def _act(self):
+        try:
+            self.act()
+        except:
+            return Action.COOPERATE
