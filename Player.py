@@ -28,6 +28,6 @@ class Player():
     
     def _act(self):
         try:
-            self.act()
+            return self.act()
         except:
             return Action.COOPERATE
