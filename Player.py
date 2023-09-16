@@ -13,7 +13,8 @@ class Player():
     def _update(self, self_action: Action, other_action: Action, score: int):
         self.other_history.append(other_action)
         self.self_history.append(self_action)
-        self._score += score 
+        self._score += score
+        self.update()
 
     def _reset(self):
         self.reset()
@@ -21,6 +22,9 @@ class Player():
         self.self_history = []
     
     def act(self):
+        pass
+
+    def update(self):
         pass
 
     def _get_score(self):
