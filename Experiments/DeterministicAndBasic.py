@@ -24,30 +24,30 @@ def main():
     d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
             Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 1, AdaptivePavlov: 15, 
             TFT: 15, TatforTit: 15}
-    #minus suspicious tit for tat
-    d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
-            Gradual: 15, SpitefulTFT: 15, AdaptivePavlov: 15, 
-            TFT: 15, TatforTit: 15}
-    #minus copycat
-    d = {AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
-            Gradual: 15, SpitefulTFT: 15, AdaptivePavlov: 15, 
-            TFT: 15, TatforTit: 15}
-    #minus rand, grudge, spiteful
-    d = {AlwaysCheat: 15, Copykitten: 15, Simpleton: 15,
-            Gradual: 15, AdaptivePavlov: 15, 
-            TFT: 15, TatforTit: 15}
+#     #minus suspicious tit for tat
+#     d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
+#             Gradual: 15, SpitefulTFT: 15, AdaptivePavlov: 15, 
+#             TFT: 15, TatforTit: 15}
+#     #minus copycat
+#     d = {AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
+#             Gradual: 15, SpitefulTFT: 15, AdaptivePavlov: 15, 
+#             TFT: 15, TatforTit: 15}
+#     #minus rand, grudge, spiteful
+#     d = {AlwaysCheat: 15, Copykitten: 15, Simpleton: 15,
+#             Gradual: 15, AdaptivePavlov: 15, 
+#             TFT: 15, TatforTit: 15}
     
-    d = {AlwaysCheat: 15, Copykitten: 15,
-            Gradual: 15, AdaptivePavlov: 15, 
-            TFT: 15, TatforTit: 15}
+#     d = {AlwaysCheat: 15, Copykitten: 15,
+#             Gradual: 15, AdaptivePavlov: 15, 
+#             TFT: 15, TatforTit: 15}
     
-    d = {AlwaysCheat: 15, Copykitten: 15,
-            Gradual: 15, AdaptivePavlov: 15, 
-            TFT: 15}
+#     d = {AlwaysCheat: 15, Copykitten: 15,
+#             Gradual: 15, AdaptivePavlov: 15, 
+#             TFT: 15}
     
-    d = { Copykitten: 15,
-            Gradual: 15, AdaptivePavlov: 15, 
-            TFT: 15}
+#     d = { Copykitten: 15,
+#             Gradual: 15, AdaptivePavlov: 15, 
+#             TFT: 15}
     g = Game.Game(d)
     g.print_players()
     g.game()
