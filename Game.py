@@ -13,6 +13,7 @@ from Submissions.Basics import *
 from Submissions.TFT import TFT
 import numpy as np
 import copy
+from random import random
 
 class Game():
 
@@ -21,9 +22,9 @@ class Game():
         self.noise = 0
         self.payoff = [[0, 3],
                        [-1, 2]]
-        self.REPRODUCE = 5
-        self.ROUNDS = 7
-        self.GAMES = 20
+        self.REPRODUCE = REPRODUCE
+        self.ROUNDS = ROUNDS
+        self.GAMES = GAMES
         self.removed = set()
 
         for key, val in player_dict.items():
@@ -55,6 +56,8 @@ class Game():
             p2 = player2._act()
             assert isinstance(p1, Action)
             assert isinstance(p1, Action)
+            p1 = Action(1 - p1.value) if random() < self.noise else p1
+            p2 = Action(1 - p2.value) if random() < self.noise else p2
             player1._update(p1, p2, self.payoff[p1.value][p2.value])
             player2._update(p2, p1, self.payoff[p2.value][p1.value])
         player1._reset()

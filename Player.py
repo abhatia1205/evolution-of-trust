@@ -2,12 +2,19 @@ from Util import *
 
 class Player():
 
+    def initialize(self):
+        pass
+
     def __init__(self):
         self._score = 0
         self.other_history = []
         self.self_history = []
+        self.initialize()
     
-    def reset(self):
+    def act(self):
+        pass
+
+    def update(self):
         pass
 
     def _update(self, self_action: Action, other_action: Action, score: int):
@@ -17,15 +24,9 @@ class Player():
         self.update()
 
     def _reset(self):
-        self.reset()
+        self.initialize(0)
         self.other_history = []
         self.self_history = []
-    
-    def act(self):
-        pass
-
-    def update(self):
-        pass
 
     def _get_score(self):
         return self._score
