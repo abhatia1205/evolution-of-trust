@@ -7,7 +7,7 @@ class Copycat(Player):
         super().__init__()
     
     def act(self):
-        return self.other_history[-1] if len(self.other_history) == 0 else Action.COOPERATE
+        return self.other_history[-1] if len(self.other_history) != 0 else Action.COOPERATE
 
 class AlwaysCheat(Player):
     def __init__(self):
@@ -21,18 +21,21 @@ class Random(Player):
         super().__init__()
     
     def act(self):
-        return random.choice(Action)
+        return Action(random.choice([0,1]))
     
 class Grudge(Player):
-    def __init__(self):
-        super().__init__()
+    def initialize(self):
+        self.has_cheated = False
     
     def act(self):
-        if self.other_history and list(map(lambda x: True if x == Action.CHEAT else False, 
-                                           self.other_history)).any():
+        if self.has_cheated:
             return Action.CHEAT
         else:
             return Action.COOPERATE
+    
+    def update(self):
+        if self.other_history[-1] == Action.CHEAT:
+            self.has_cheated = True
 
 class Detective(Player):
     def initialize(self):

@@ -8,5 +8,5 @@ PAYOFF = [[0, 3],
           [-1, 2]]
 
 REPRODUCE = 15 #
-ROUNDS = 10
+ROUNDS = 100
 GAMES = 17

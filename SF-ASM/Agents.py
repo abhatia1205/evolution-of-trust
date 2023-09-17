@@ -42,6 +42,10 @@ class Investor:
 
         return opt_qty - self.stock_qty
 
+    def effective_demand(self, current_price, market_state, dividend):
+        qty = self.stock_demand(current_price, market_state, dividend)
+        return qty - self.stock_qty
+
     def expected_price(self, price, market_state):
         self.select_rule(market_state).forecast(price)
 
@@ -114,7 +118,7 @@ class Investor:
 
         Resultado: Nova rule_set
         """
-        index_list = [i for i in range(12, len(self.trading_rules))]
+        index_list = [i for i in range(44, 64)]
         #rule_list = heapq.nsmallest(20, self.trading_rules, key=lambda x: -x.accuracy)
         for i in index_list:
             rand = random.uniform(0, 1)

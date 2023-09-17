@@ -41,10 +41,9 @@ class Game():
     
     def reproduce(self):
         self.removed = set()
-        l = sorted(self.players, key = lambda x: x._get_score())
+        l = sorted(self.players, key = lambda x: -x._get_score())
         for i in l[-REPRODUCE:]:
-            if not type(i) in self.removed:
-                self.removed.add(type(i))
+            self.removed.add(type(i))
         l = l[:-REPRODUCE]
         for i in range(REPRODUCE):
             l.append(copy.deepcopy(l[i]))
@@ -77,10 +76,11 @@ class Game():
 
             self.round()
             self.reproduce()
+            for player in self.players:
+                player._score=0
             
             print('End state after reproduction: \n')
             self.print_players()
-            # print("\n")
 
 
 def main():

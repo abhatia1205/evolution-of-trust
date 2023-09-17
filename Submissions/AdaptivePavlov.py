@@ -24,12 +24,12 @@ class AdaptivePavlov(Player):
                 self.other_class = "STFT"
             if not self.other_class:
                 self.opponent_class = "Random"
-        if self.opponent_class in ["Random", "ALLD"]:
+        if self.other_class in ["Random", "ALLD"]:
             return Action.CHEAT
-        if self.opponent_class == "STFT":
+        if self.other_class == "STFT":
             # TFTT
             return Action.CHEAT if self.other_history[-2:] == [Action.CHEAT, Action.CHEAT] else Action.COOPERATE
-        if self.opponent_class == "Cooperative":
+        if self.other_class == "Cooperative":
             # TFT
             return Action.CHEAT if self.other_history[-1:] == [Action.CHEAT] else Action.COOPERATE
         pass

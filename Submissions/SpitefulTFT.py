@@ -13,8 +13,8 @@ class SpitefulTFT (Player):
         if len(self.other_history) == 0:
             return Action.COOPERATE
 
-        if self.other_history[-1] <= 0:
-            if len(self.other_history) >= 2 and self.other_history[-2] <= 0:
+        if self.other_history[-1] == Action.CHEAT:
+            if len(self.other_history) >= 2 and self.other_history[-2] == Action.CHEAT:
                 self.spiteful = True
             return Action.CHEAT
         return Action.COOPERATE
