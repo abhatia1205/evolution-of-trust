@@ -3,9 +3,7 @@ from Util import *
 from Player import *
 
 class Gradual(Player):
-    def __init__(self) -> None:
-
-        super().__init__()
+    def initialize(self) -> None:
         self.calm_count = 0
         self.punish_count = 0
 

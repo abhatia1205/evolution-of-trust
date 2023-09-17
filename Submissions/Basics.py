@@ -35,8 +35,7 @@ class Grudge(Player):
             return Action.COOPERATE
 
 class Detective(Player):
-    def __init__(self):
-        super().__init__()
+    def initialize(self):
         self.begin_choices = [Action.COOPERATE, Action.CHEAT, Action.COOPERATE, Action.COOPERATE]
         self.copycat_mode = False
     
@@ -51,7 +50,7 @@ class Detective(Player):
     def update(self):
         if self.other_history[-1] == Action.CHEAT:
             self.copycat_mode = True
-    
+
 class Copykitten(Player):
     def __init__(self):
         super().__init__()

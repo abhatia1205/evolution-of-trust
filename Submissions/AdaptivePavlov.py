@@ -3,8 +3,7 @@ from Util import *
 
 class AdaptivePavlov(Player):
 
-    def __init__(self):
-        super().__init__()
+    def initialize(self):
         self.other_history = []
         self.self_history = []
         self.other_class = "Cooperative"
