@@ -17,6 +17,9 @@ class Player():
     def update(self):
         pass
 
+    def reset(self):
+        pass
+
     def _update(self, self_action: Action, other_action: Action, score: int):
         self.other_history.append(other_action)
         self.self_history.append(self_action)
