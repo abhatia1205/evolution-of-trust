@@ -6,6 +6,7 @@ import pickle
 import csv
 
 import numpy as np
+import progressbar
 
 from Agents import Investor, Specialist, Rule
 from Market import MarketInfo, Stock
@@ -80,7 +81,7 @@ class Simulation:
             self.load_agents()
             print("Agents loaded sucessfully!")
         if progress:
-            step_list = range(self.n_steps)
+            step_list = progressbar.progressbar(range(self.n_steps))
         else:
             step_list = range(self.n_steps)
         with open(self.csv_filepath, mode='a', newline='') as data_file:

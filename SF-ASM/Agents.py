@@ -114,7 +114,7 @@ class Investor:
 
         Resultado: Nova rule_set
         """
-        index_list = [i for i in range(44, 64)]
+        index_list = [i for i in range(12, len(self.trading_rules))]
         #rule_list = heapq.nsmallest(20, self.trading_rules, key=lambda x: -x.accuracy)
         for i in index_list:
             rand = random.uniform(0, 1)

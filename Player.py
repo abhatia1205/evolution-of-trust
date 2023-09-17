@@ -24,7 +24,8 @@ class Player():
         self.update()
 
     def _reset(self):
-        self.initialize(0)
+        self.initialize()
+        self.reset()
         self.other_history = []
         self.self_history = []
 
