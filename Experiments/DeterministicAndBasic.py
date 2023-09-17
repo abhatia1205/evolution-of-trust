@@ -22,7 +22,7 @@ import copy
 def main():
     #all
     d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
-            Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 1, AdaptivePavlov: 15, 
+            Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 15, AdaptivePavlov: 15, 
             TFT: 15, TatforTit: 15}
 #     #minus suspicious tit for tat
 #     d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
@@ -45,12 +45,26 @@ def main():
 #             Gradual: 15, AdaptivePavlov: 15, 
 #             TFT: 15}
     
-#     d = { Copykitten: 15,
-#             Gradual: 15, AdaptivePavlov: 15, 
-#             TFT: 15}
     g = Game.Game(d)
     g.print_players()
     g.game()
+
+    
+#     matrix = [[0 for i in range(5)] for j in range(6)]
+
+#     for noise in [0,0.02, 0.05, 0.1, 0.2, 0.4]:
+#         for num_rounds in [10, 20, 50, 100, 200]:
+#                 g = Game.Game(d)
+#                 g.ROUNDS = num_rounds
+#                 g.noise = noise
+#                 g.print_players()
+#                 g.game()
+
+    
+#     d = { Copykitten: 15,
+#             Gradual: 15, AdaptivePavlov: 15, 
+#             TFT: 15, SuspiciousTitForTat: 15}
+
 
 if __name__ == '__main__':
     main()
