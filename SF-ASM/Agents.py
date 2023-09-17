@@ -14,7 +14,7 @@ class Investor:
     Referência capítulo 6 de "Agent-Based Modeling The Santa Fe Institute Artificial Stock Market Model Revisited"
     """
 
-    def __init__(self, rules, stock_qty=1, cash=20000, risk_free=0.05):
+    def __init__(self, rules, stock_qty=1, cash=20000, risk_free=0.05, is_fundamental=False):
         """
         :param rules: lista de 100 objetos 'Rule', regras de decisão iniciais
         """
@@ -26,6 +26,7 @@ class Investor:
         self.risk_free = Decimal(risk_free)
         self.investor_history = pd.DataFrame(data=None, columns={'step', 'cash', 'stocks', 'wealth', 'bits_used',
                                                                  'alpha', 'beta', 'accuracy'})
+        self.is_fundamental = is_fundamental
 
     def stock_demand(self, current_price, market_state, dividend):
         rule = self.select_rule(market_state)
@@ -134,8 +135,7 @@ class Investor:
         # df = pd.DataFrame(df)
         self.investor_history = self.investor_history.append(df, ignore_index=True)
 
-    @staticmethod
-    def crossover(rule1, rule2):
+    def crossover(self, rule1, rule2):
         """
         Geração "genética" de regras a partir de 2 outras regras
 
@@ -163,7 +163,7 @@ class Investor:
             a2, b2 = rule2.get_coefs()
             a = (a1 / rule1.accuracy + a2 / rule2.accuracy) / (1 / rule1.accuracy + 1 / rule2.accuracy)
             b = (b1 / rule1.accuracy + b2 / rule2.accuracy) / (1 / rule1.accuracy + 1 / rule2.accuracy)
-        nova_regra = Rule(nova_watchlist, a, b)
+        nova_regra = Rule(nova_watchlist, a, b, is_fundamental=self.is_fundamental)
         nova_regra.accuracy = (rule1.accuracy + rule2.accuracy) / 2
         return nova_regra
 
@@ -173,7 +173,7 @@ class Rule:
     Regra de decisão baseada na estrutura de informações sobre o mercado
     """
 
-    def __init__(self, watch_list, alpha=0, beta=0):
+    def __init__(self, watch_list, alpha=0, beta=0, is_fundamental=False):
         """
         :param watch_list: lista de 64 posições com: 0,se esperar a posição ser 0, 1 se esperar 1 e 2 se for indiferente
         """
@@ -185,6 +185,10 @@ class Rule:
         self.accuracy = 4
         self.bit_cost = 0.005
         self.unused_steps = 0
+        self.is_fundamental = is_fundamental
+        if(self.is_fundamental):
+            for j in range(31, len(self.watch_list)):
+                self.watch_list[i] = 2
         #self.fitness = 100 - (self.accuracy[-1] + self.bit_cost * self.specificity)
 
     @property
@@ -229,6 +233,10 @@ class Rule:
                         self.watch_list[i] = 2
                 else:
                     self.watch_list[i] = random.choice([0, 1, 2])
+            if(self.is_fundamental):
+                for j in range(31, len(self.watch_list)):
+                    self.watch_list[i] = 2
+
 
     def generalize_rule(self):
         """

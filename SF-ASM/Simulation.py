@@ -76,7 +76,7 @@ class Simulation:
         :return:
         """
         if new_agents:
-            self.initialiaze_agents()
+            self.all_technial()
         else:
             self.load_agents()
             print("Agents loaded sucessfully!")
@@ -136,14 +136,15 @@ class Simulation:
         print("Processo concluído")
         return self.market.price_history
 
-    def initialiaze_agents(self):
+    def initialize_agents(self, lamb_exp):
         agents = []
         for _ in range(self.n_agents):
+            fundamental = lamb_exp(_)
             rules = []
             for i in range(100):
                 watch = random.choices([0, 1, 2], [1, 1, 18], k=64)
-                rules.append(Rule(watch_list=watch, alpha=random.uniform(0.7, 1.2), beta=random.uniform(-10, 19)))
-            agents.append(Investor(rules))
+                rules.append(Rule(watch_list=watch, alpha=random.uniform(0.7, 1.2), beta=random.uniform(-10, 19), is_fundamental=False))
+            agents.append(Investor(rules, is_fundamental=False))
         self.investors = agents
         self.specialist = Specialist(max_trials=6,
                                      max_price=200,
@@ -152,6 +153,18 @@ class Simulation:
                                      min_excess=10 ** -3,
                                      eta=0.005)
         self.market = MarketInfo(dividend_mean=10)
+    
+    def one_technical(self):
+        self.initialize_agents(lambda x: x != 0)
+
+    def one_fundamental(self):
+        self.initialize_agents(lambda x: x == 0)
+
+    def all_fundamental(self):
+        self.initialize_agents(lambda x: True)
+
+    def all_technical(self):
+        self.initialize_agents(lambda x: False)
 
     def save_agents(self):
         agents = self.investors
