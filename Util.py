@@ -7,5 +7,5 @@ class Action(Enum):
 PAYOFF = [[0, 3],
           [-1, 2]]
 REPRODUCE = 15
-ROUNDS = 4
-GAMES = 10
+ROUNDS = 10
+GAMES = 17

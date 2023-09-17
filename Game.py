@@ -87,5 +87,7 @@ def main():
     g = Game(dict)
     g.print_players()
     g.game()
-main()
+
+if __name__ == '__main__':
+    main()
 
