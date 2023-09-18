@@ -76,7 +76,7 @@ class Simulation:
         :return:
         """
         if new_agents:
-            self.all_technial()
+            self.all_technical()
         else:
             self.load_agents()
             print("Agents loaded sucessfully!")
