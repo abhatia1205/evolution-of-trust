@@ -191,7 +191,7 @@ class Rule:
         self.is_fundamental = is_fundamental
         if(self.is_fundamental):
             for j in range(31, len(self.watch_list)):
-                self.watch_list[i] = 2
+                self.watch_list[j] = 2
         #self.fitness = 100 - (self.accuracy[-1] + self.bit_cost * self.specificity)
 
     @property

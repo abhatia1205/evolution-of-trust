@@ -72,13 +72,21 @@ class Simulation:
         self.agent_value = []
         self.other_value = []
 
-    def MainSimulation(self, progress=False, price_setting="clearing", new_agents=False):
+    def MainSimulation(self, progress=False, price_setting="clearing", new_agents=False, mode=0):
         """
         Executa a simulação com base nos parâmetros
         :return:
         """
         if new_agents:
-            self.all_technical()
+            if mode <= 0:
+                self.all_technical()
+            elif mode == 1:
+                self.all_fundamental()
+            elif mode == 2:
+                self.one_technical()
+            else:
+                self.one_fundamental()
+            # self.all_fundamental()
         else:
             self.load_agents()
             print("Agents loaded sucessfully!")
@@ -90,7 +98,7 @@ class Simulation:
             for step in step_list:
                 if(step % 50 == 0):
                     self.agent_value.append(float(self.investors[0].calculate_value(self.stock.current_price)))
-                    self.other_value.append(float(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors)) - self.agent_value[-1]) / 500)
+                    self.other_value.append(float(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors)) - self.agent_value[-1]) / (self.n_agents - 1))
                 self.stock.update_dividend()
                 dividend = self.stock.current_dividend
                 if step != 0:
@@ -138,9 +146,24 @@ class Simulation:
                 self.market.update_info_state(step)
                 self.market.unburden_history()
         self.agent_value.append(float(self.investors[0].calculate_value(self.stock.current_price)))
-        self.other_value.append(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors) - self.investors[0]) / 500)
-        print(self.agent_value)
-        print(self.other_value)
+        self.other_value.append(float(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors)) - self.agent_value[-1]) / (self.n_agents - 1))
+        with open('agent0VSmarket.txt', 'a') as f:
+            f.write('Agent 0:\n')
+            f.write(str(self.agent_value))
+            f.write('\nOther Agents:\n')
+            f.write(str(self.other_value) + '\n')
+            f.write('Conclusion: ')
+            if mode <= 0:
+                f.write('All Technical\n')
+            elif mode == 1:
+                f.write('All Fundamental\n')
+            elif mode == 2:
+                f.write('One Technical, Agent 0\n')
+            else:
+                f.write('One Fundamental, Agent 0\n')
+            f.write('Final difference: ')
+            f.write(str(self.agent_value[-1] - self.other_value[-1]) + '\n---------------------\n')
+            f.flush()
         self.save_agents()
         print("Processo concluído")
         return self.market.price_history
@@ -152,8 +175,8 @@ class Simulation:
             rules = []
             for i in range(100):
                 watch = random.choices([0, 1, 2], [1, 1, 18], k=64)
-                rules.append(Rule(watch_list=watch, alpha=random.uniform(0.7, 1.2), beta=random.uniform(-10, 19), is_fundamental=False))
-            agents.append(Investor(rules, is_fundamental=False))
+                rules.append(Rule(watch_list=watch, alpha=random.uniform(0.7, 1.2), beta=random.uniform(-10, 19), is_fundamental=fundamental))
+            agents.append(Investor(rules, is_fundamental=fundamental))
         self.investors = agents
         self.specialist = Specialist(max_trials=6,
                                      max_price=200,
