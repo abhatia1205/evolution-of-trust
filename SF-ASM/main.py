@@ -19,4 +19,3 @@ if __name__ == '__main__':
     for i in [k for k in range(1)]:
         a = Simulation(20, 500)
         pri = a.MainSimulation(progress=1, price_setting='auction', new_agents=True)
-

@@ -69,6 +69,8 @@ class Simulation:
                            revision_speed=0.95,
                            dividend_error_var=0.075)
         self.csv_filepath = csv_filepath
+        self.agent_value = []
+        self.other_value = []
 
     def MainSimulation(self, progress=False, price_setting="clearing", new_agents=False):
         """
@@ -76,7 +78,7 @@ class Simulation:
         :return:
         """
         if new_agents:
-            self.all_technial()
+            self.all_technical()
         else:
             self.load_agents()
             print("Agents loaded sucessfully!")
@@ -86,6 +88,9 @@ class Simulation:
             step_list = range(self.n_steps)
         with open(self.csv_filepath, mode='a', newline='') as data_file:
             for step in step_list:
+                if(step % 50 == 0):
+                    self.agent_value.append(float(self.investors[0].calculate_value(self.stock.current_price)))
+                    self.other_value.append(float(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors)) - self.agent_value[-1]) / 500)
                 self.stock.update_dividend()
                 dividend = self.stock.current_dividend
                 if step != 0:
@@ -132,6 +137,10 @@ class Simulation:
                 self.market.update_history(price, dividend)
                 self.market.update_info_state(step)
                 self.market.unburden_history()
+        self.agent_value.append(float(self.investors[0].calculate_value(self.stock.current_price)))
+        self.other_value.append(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors) - self.investors[0]) / 500)
+        print(self.agent_value)
+        print(self.other_value)
         self.save_agents()
         print("Processo concluído")
         return self.market.price_history
