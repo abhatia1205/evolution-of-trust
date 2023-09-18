@@ -24,9 +24,12 @@ class Investor:
         self.median_accuracy = Decimal(4)
         self.cash = Decimal(cash)
         self.risk_free = Decimal(risk_free)
-        self.investor_history = pd.DataFrame(data=None, columns={'step', 'cash', 'stocks', 'wealth', 'bits_used',
-                                                                 'alpha', 'beta', 'accuracy'})
+        self.investor_history = pd.DataFrame(data=None, columns=['step', 'cash', 'stocks', 'wealth', 'bits_used',
+                                                                 'alpha', 'beta', 'accuracy'])
         self.is_fundamental = is_fundamental
+
+    def calculate_value(self, price):
+        return self.stock_qty * price + self.cash
 
     def stock_demand(self, current_price, market_state, dividend):
         rule = self.select_rule(market_state)
@@ -188,7 +191,7 @@ class Rule:
         self.is_fundamental = is_fundamental
         if(self.is_fundamental):
             for j in range(31, len(self.watch_list)):
-                self.watch_list[i] = 2
+                self.watch_list[j] = 2
         #self.fitness = 100 - (self.accuracy[-1] + self.bit_cost * self.specificity)
 
     @property
