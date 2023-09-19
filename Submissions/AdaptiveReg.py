@@ -14,8 +14,7 @@ class Adaptive(Player):
 
     def __init__(self):
         super().__init__()
-        if not initial_plays:
-            initial_plays = [Action.COOPERATE] * 6 + [Action.CHEAT] * 5
+        initial_plays = [Action.COOPERATE] * 6 + [Action.CHEAT] * 5
         self.initial_plays = initial_plays
         self.scores = {Action.COOPERATE: 0, Action.CHEAT: 0}
 
@@ -26,7 +25,7 @@ class Adaptive(Player):
             scores = self.score(last_round) #changed from self.game to self.score?
             self.scores[last_round[0]] += scores[0]
 
-    def strategy(self, opponent: Player) -> Action:
+    def act(self, opponent: Player) -> Action:
         """Actual strategy definition that determines player's action."""
         # Update scores from the last play
         self.score_last_round(opponent)

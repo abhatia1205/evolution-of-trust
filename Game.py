@@ -88,6 +88,7 @@ def main():
     dict = {Copycat:15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
             Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 15, AdaptivePavlov: 15, 
             TFT: 15}
+    print(dict)
     g = Game(dict)
     g.print_players()
     g.game()
