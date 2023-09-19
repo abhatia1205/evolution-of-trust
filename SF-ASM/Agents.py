@@ -108,7 +108,7 @@ class Investor:
         """
         Atualiza a mediana da precisão desse agente
         """
-        accuracy = [i.accuracy for i in self.trading_rules]
+        accuracy = [float(i.accuracy) for i in self.trading_rules]
         self.median_accuracy = statistics.median(accuracy)
 
     def update_portifolio(self, qnty, price,dividend):
