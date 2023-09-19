@@ -19,7 +19,7 @@ class Game():
 
     def __init__(self, player_dict: Dict[Type, int]):
         self.players: List[Player] = []
-        self.noise = 0
+        self.noise = NOISE
         self.payoff = [[0, 3],
                        [-1, 2]]
         self.REPRODUCE = REPRODUCE
@@ -46,7 +46,7 @@ class Game():
             self.removed.add(type(i))
         l = l[:-REPRODUCE]
         for i in range(REPRODUCE):
-            l.append(copy.deepcopy(l[i]))
+            l.insert(0, copy.deepcopy(l[i + i]))
         self.players = l
 
     def standoff(self, player1: Player, player2: Player):
@@ -59,8 +59,8 @@ class Game():
             p2 = Action(1 - p2.value) if random() < self.noise else p2
             player1._update(p1, p2, self.payoff[p1.value][p2.value])
             player2._update(p2, p1, self.payoff[p2.value][p1.value])
-        player1._reset()
-        player2._reset()
+        player1._clear_history()
+        player2._clear_history()
 
     def round(self):
         #set up players lol
@@ -73,18 +73,19 @@ class Game():
         for i in range(GAMES):
             # print('Starting state: \n')
             # self.print_players()
-
+            np.random.shuffle(self.players)
             self.round()
             self.reproduce()
             for player in self.players:
-                player._score=0
+                player._reset()
+                # player._score=0
             
             print('End state after reproduction: \n')
             self.print_players()
 
 
 def main():
-    dict = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
+    dict = {Copycat:15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
             Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 15, AdaptivePavlov: 15, 
             TFT: 15}
     g = Game(dict)

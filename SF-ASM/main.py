@@ -16,6 +16,6 @@ param = {"genetic_param": 0.9,
 
 
 if __name__ == '__main__':
-    for i in [0,1,2,3]:
-        a = Simulation(20, 1000)
-        pri = a.MainSimulation(progress=1, price_setting='auction', new_agents=True, mode=1)
+    for k in range(4):
+        a = Simulation(20, 10000)
+        pri = a.MainSimulation(progress=1, price_setting='auction', new_agents=True, mode=k)

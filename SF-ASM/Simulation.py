@@ -71,6 +71,7 @@ class Simulation:
         self.csv_filepath = csv_filepath
         self.agent_value = []
         self.other_value = []
+        self.std = []
 
     def MainSimulation(self, progress=False, price_setting="clearing", new_agents=False, mode=0):
         """
@@ -99,6 +100,7 @@ class Simulation:
                 if(step % 50 == 0):
                     self.agent_value.append(float(self.investors[0].calculate_value(self.stock.current_price)))
                     self.other_value.append(float(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors)) - self.agent_value[-1]) / (self.n_agents - 1))
+                    self.std.append(float(np.std([inv.calculate_value(self.stock.current_price) for inv in self.investors])))
                 self.stock.update_dividend()
                 dividend = self.stock.current_dividend
                 if step != 0:
@@ -147,11 +149,14 @@ class Simulation:
                 self.market.unburden_history()
         self.agent_value.append(float(self.investors[0].calculate_value(self.stock.current_price)))
         self.other_value.append(float(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors)) - self.agent_value[-1]) / (self.n_agents - 1))
+        self.std.append(float(np.std([inv.calculate_value(self.stock.current_price) for inv in self.investors])))
         with open('agent0VSmarket.txt', 'a') as f:
             f.write('Agent 0:\n')
             f.write(str(self.agent_value))
             f.write('\nOther Agents:\n')
             f.write(str(self.other_value) + '\n')
+            f.write('\nStandard Devs:\n')
+            f.write(str(self.std) + '\n')
             f.write('Conclusion: ')
             if mode <= 0:
                 f.write('All Technical\n')
@@ -162,7 +167,8 @@ class Simulation:
             else:
                 f.write('One Fundamental, Agent 0\n')
             f.write('Final difference: ')
-            f.write(str(self.agent_value[-1] - self.other_value[-1]) + '\n---------------------\n')
+            diff = self.agent_value[-1] - self.other_value[-1]
+            f.write(f'{diff}  {diff/self.std[-1]}  \n---------------------\n')
             f.flush()
         self.save_agents()
         print("Processo concluído")

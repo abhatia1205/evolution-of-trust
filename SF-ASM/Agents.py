@@ -112,7 +112,7 @@ class Investor:
         self.median_accuracy = statistics.median(accuracy)
 
     def update_portifolio(self, qnty, price,dividend):
-        #self.cash += Decimal(dividend) * self.stock_qty
+        self.cash += dividend * self.stock_qty
         self.stock_qty += Decimal(qnty)
         self.cash -= Decimal(qnty) * Decimal(price)
 

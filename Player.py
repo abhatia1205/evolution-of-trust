@@ -29,8 +29,7 @@ class Player():
     def _reset(self):
         self.initialize()
         self.reset()
-        self.other_history = []
-        self.self_history = []
+        self._clear_history()
 
     def _get_score(self):
         return self._score
@@ -40,3 +39,7 @@ class Player():
             return self.act()
         except:
             return Action.COOPERATE
+
+    def _clear_history(self):
+        self.other_history = []
+        self.self_history = []
