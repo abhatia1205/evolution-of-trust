@@ -19,11 +19,12 @@ import Game as Game
 import copy
 
 
+
 def main():
     #all
-    d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
+    d = {Copycat: 15, AlwaysCheat: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
             Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 15, AdaptivePavlov: 15, 
-            TFT: 15, TatforTit: 15}
+          TatforTit: 15}
 #     #minus suspicious tit for tat
 #     d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
 #             Gradual: 15, SpitefulTFT: 15, AdaptivePavlov: 15, 
