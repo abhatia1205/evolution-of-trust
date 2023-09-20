@@ -17,7 +17,7 @@ param = {"genetic_param": 0.9,
 
 
 if __name__ == '__main__':
-    for k, name in enumerate(["One Technial", "One Fundamental"]):
+    for k, name in enumerate(["All Tehcnical", "All Fundamental"]):
         agent_0 = []
         others = []
         for i in range(10):
