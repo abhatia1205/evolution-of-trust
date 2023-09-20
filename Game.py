@@ -14,6 +14,7 @@ from Submissions.TFT import TFT
 import numpy as np
 import copy
 from random import random
+import time
 
 class Game():
 
@@ -36,7 +37,7 @@ class Game():
             d[type(player).__name__] = d[type(player).__name__] + 1
         for key, val in sorted(d.items(), key = lambda kv: kv[1]):
             print(f"\t{key}: {val}", end = "\n")
-        print('Removed: ', self.removed)
+        time.sleep(2)
         print("\n")
     
     def reproduce(self):
