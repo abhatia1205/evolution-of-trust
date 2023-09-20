@@ -1,9 +1,10 @@
 from typing import Type, List, Tuple
 from Player import Player
-from Submissions import *
+from user_submissions import *
 import glob
 import inspect
 import importlib
+from Util import * 
 
 from Game import Game
 
@@ -20,16 +21,18 @@ def genClasses() -> List[Tuple[str, Type[Player]]]:
     Returns:
         List[Tuple[str, Type[Player]]] - List of tuples with pairs of class name and classes
     '''
-    moduleNames = [c[14:-3] for c in glob.glob('./Submissions/*.py') if not '__init__.py' in c]
+    moduleNames = [c[19:-3] for c in glob.glob('./user_submissions/*.py') if not '__init__.py' in c]
     # print(moduleNames)
     players = []
     player_dict = {}
     for c in moduleNames:
         for name, klass in inspect.getmembers(globals()[c], inspect.isclass):
-            if 'Submissions' in klass.__module__ and issubclass(klass, Player):
+            print(klass.__module__)
+            if 'user_submissions' in klass.__module__ and issubclass(klass, Player):
                 # my_import('Submissions.'+c+'.'+name)
-                SubmissionClass = getattr(importlib.import_module('Submissions.'+c), name)
-                player_dict[SubmissionClass] = 15
+                SubmissionClass = getattr(importlib.import_module('user_submissions.'+c), name)
+                print(SubmissionClass)
+                player_dict[SubmissionClass] = REPRODUCE
                 players.append((c+'.'+name, klass))
     print(player_dict)
     return player_dict

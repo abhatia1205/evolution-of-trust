@@ -16,14 +16,37 @@ from Submissions.TFT import TFT
 from Submissions.TatForTit import TatforTit
 # import numpy as np
 import Game as Game
+import pandas as pd
+import numpy as np
 import copy
+
+def runall():
+    d = {Copycat: 15, AlwaysCheat: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
+            Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 15, AdaptivePavlov: 15, 
+          TatforTit: 15}
+    arr = []
+    
+    for rou in [1, 5, 10, 20, 50, 100, 200]:
+        a = []
+        for noi in [-1, 0.02, 0.05, 0.1, 0.2, 0.4]:
+                print(rou, noi)
+                g = Game.Game(d, _rounds=rou, _noise=noi)
+                alive = list(g.game())
+                a.append([b.__name__ for b in alive])
+                # print(f'rounds: {rou}, noise: {noi}, game: {i
+        arr.append(a)
+    print(arr)
+    np_arr = (arr)
+    r = pd.DataFrame(np_arr)
+    r.to_csv('data.csv')
+    
 
 
 def main():
     #all
-    d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
+    d = {Copycat: 15, AlwaysCheat: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
             Gradual: 15, SpitefulTFT: 15, SuspiciousTitForTat: 15, AdaptivePavlov: 15, 
-            TFT: 15, TatforTit: 15}
+          TatforTit: 15}
 #     #minus suspicious tit for tat
 #     d = {Copycat: 15, AlwaysCheat: 15, Random: 15, Grudge: 15, Copykitten: 15, Simpleton: 15,
 #             Gradual: 15, SpitefulTFT: 15, AdaptivePavlov: 15, 
@@ -68,6 +91,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # runall()
 
 '''
 params: 
