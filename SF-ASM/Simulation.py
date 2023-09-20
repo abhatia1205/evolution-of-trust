@@ -78,16 +78,10 @@ class Simulation:
         Executa a simulação com base nos parâmetros
         :return:
         """
+        functions = [self.all_technical, self.all_fundamental, self.one_technical, self.one_fundamental]
+        names = ["All Tehcnical", "All Fundamental", "One Technial", "One Fundamental"]
         if new_agents:
-            if mode <= 0:
-                self.all_technical()
-            elif mode == 1:
-                self.all_fundamental()
-            elif mode == 2:
-                self.one_technical()
-            else:
-                self.one_fundamental()
-            # self.all_fundamental()
+            functions[mode]()
         else:
             self.load_agents()
             print("Agents loaded sucessfully!")
@@ -148,7 +142,7 @@ class Simulation:
                 self.market.update_info_state(step)
                 self.market.unburden_history()
         self.agent_value.append(float(self.investors[0].calculate_value(self.stock.current_price)))
-        self.other_value.append(float(float(sum(inv.calculate_value(self.stock.current_price) for inv in self.investors)) - self.agent_value[-1]) / (self.n_agents - 1))
+        self.other_value.append(float(np.mean([i.calculate_value(self.stock.current_price) for i in self.investors])))
         self.std.append(float(np.std([inv.calculate_value(self.stock.current_price) for inv in self.investors])))
         with open('agent0VSmarket.txt', 'a') as f:
             f.write('Agent 0:\n')
@@ -158,21 +152,14 @@ class Simulation:
             f.write('\nStandard Devs:\n')
             f.write(str(self.std) + '\n')
             f.write('Conclusion: ')
-            if mode <= 0:
-                f.write('All Technical\n')
-            elif mode == 1:
-                f.write('All Fundamental\n')
-            elif mode == 2:
-                f.write('One Technical, Agent 0\n')
-            else:
-                f.write('One Fundamental, Agent 0\n')
+            f.write(names[mode] + "\n")
             f.write('Final difference: ')
             diff = self.agent_value[-1] - self.other_value[-1]
             f.write(f'{diff}  {diff/self.std[-1]}  \n---------------------\n')
             f.flush()
         self.save_agents()
-        print("Processo concluído")
-        return self.market.price_history
+        print("Process Concluded")
+        return self.agent_value, self.other_value
 
     def initialize_agents(self, lamb_exp):
         agents = []

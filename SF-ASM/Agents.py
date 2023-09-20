@@ -122,9 +122,7 @@ class Investor:
 
         Resultado: Nova rule_set
         """
-        index_list = [i for i in range(44, 64)]
-        #rule_list = heapq.nsmallest(20, self.trading_rules, key=lambda x: -x.accuracy)
-        for i in index_list:
+        for i in range(64):
             rand = random.uniform(0, 1)
             if rand < genetic_param:
                 self.trading_rules[i].mutate_rule(accuracy=self.median_accuracy)
@@ -236,9 +234,9 @@ class Rule:
                         self.watch_list[i] = 2
                 else:
                     self.watch_list[i] = random.choice([0, 1, 2])
-            if(self.is_fundamental):
-                for j in range(31, len(self.watch_list)):
-                    self.watch_list[i] = 2
+        if(self.is_fundamental):
+            for j in range(31, len(self.watch_list)):
+                self.watch_list[i] = 2
 
 
     def generalize_rule(self):

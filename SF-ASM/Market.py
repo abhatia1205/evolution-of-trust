@@ -233,8 +233,8 @@ class Stock:
         self.reproduce = bool(reproduce)
 
     def update_dividend(self):
-        if self.reproduce:
-            random.seed(0)
+        # if self.reproduce:
+        #     random.seed(0)
         error = Decimal(random.gauss(0, self.dividend_error_var))
         new_dividend = self.dividend_mean + self.revision_speed * (self.current_dividend - self.dividend_mean) + error
         self.current_dividend = Decimal(new_dividend)
