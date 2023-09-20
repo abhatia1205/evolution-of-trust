@@ -32,7 +32,7 @@ def genClasses() -> List[Tuple[str, Type[Player]]]:
                 # my_import('Submissions.'+c+'.'+name)
                 SubmissionClass = getattr(importlib.import_module('user_submissions.'+c), name)
                 print(SubmissionClass)
-                player_dict[SubmissionClass] = 5
+                player_dict[SubmissionClass] = NUM_INITIAL_PLAYERS
                 players.append((c+'.'+name, klass))
     print(player_dict)
     return player_dict
