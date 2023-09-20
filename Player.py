@@ -36,7 +36,11 @@ class Player():
     
     def _act(self):
         try:
-            return self.act()
+            action = self.act()
+            if isinstance(action, Action):
+                return action
+            else:
+                return Action.COOPERATE
         except:
             return Action.COOPERATE
 

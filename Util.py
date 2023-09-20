@@ -9,5 +9,5 @@ PAYOFF = [[0, 3],
 
 REPRODUCE = 15 #
 ROUNDS = 10
-GAMES = 50
+GAMES = 200
 NOISE = -1

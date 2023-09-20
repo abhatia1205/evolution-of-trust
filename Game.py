@@ -33,7 +33,7 @@ class Game():
     def print_players(self):
         d = defaultdict(lambda: 0)
         for player in self.players:
-            d[type(player).__name__] = d[type(player).__name__] + 1
+            d[type(player).__name__+type(player).__module__] = d[type(player).__name__+type(player).__module__] + 1
         for key, val in sorted(d.items(), key = lambda kv: kv[1]):
             print(f"\t{key}: {val}", end = "\n")
         print('Removed: ', self.removed)
