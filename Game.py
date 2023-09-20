@@ -79,7 +79,7 @@ class Game():
             self.reproduce()
             for player in self.players:
                 player._reset()
-                # player._score=0
+                player._score=0
             
             print('End state after reproduction: \n')
             self.print_players()
